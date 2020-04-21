@@ -46,12 +46,12 @@ function validate(product) {
 async function update(_, { Product_id, changes }) {
   const db = getDb();
   if (changes.status || changes.Product_name || changes.Category) {
-    const product = await db.collection('product').findOne({ Product_id });
+    const product = await db.collection('products').findOne({ Product_id });
     Object.assign(product, changes);
     validate(product);
   }
   await db.collection('products').updateOne({ Product_id }, { $set: changes });
-  const savedProduct = await db.collection('product').findOne({ Product_id });
+  const savedProduct = await db.collection('products').findOne({ Product_id });
   return savedProduct;
 }
 

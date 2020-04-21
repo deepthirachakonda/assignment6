@@ -11,7 +11,7 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 //     render() {
 //         const product = this.props.product;
 const ProductRow = withRouter(({
-    product, location: { search }, closeproduct, index,})=>{
+    product, location: { search }, closeProduct, deleteProduct, index,})=>{
         const selectLocation = { pathname: `/products/${product.Product_id}`, search };
         return (
             <tr>
@@ -21,11 +21,9 @@ const ProductRow = withRouter(({
                 <td>{product.Category}</td>
                 <td>${product.Price}</td>
                 <td><a href={product.Image} target="_blank">{product.Image}</a></td>
-                <td><Link to={`/edit/${product.Product_id}`}>Edit</Link>
+                <td><Link to={`/edit/${product.Product_id}`}>Edit</Link></td>
                 {' | '}
-                <NavLink to={selectLocation}>Select</NavLink></td>
-                {' | '}
-                <button type="button" onClick={() => { closeproduct(index); }}>
+                <button type="button" onClick={() => { closeProduct(index); }}>
                 Close
                 </button>
                 {' | '}

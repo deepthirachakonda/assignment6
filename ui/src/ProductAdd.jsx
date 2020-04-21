@@ -18,6 +18,7 @@ export default class ProductAdd extends Component {
         console.log(form.Price.value);
         const product = {
             Product_id: 0,
+            status: "New",
             Product_name: form.Product_name.value,
             Category: form.Category.value,
             Price: form.Price.valueAsNumber,

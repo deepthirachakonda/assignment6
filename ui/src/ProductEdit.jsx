@@ -45,8 +45,7 @@ export default class ProductEdit extends Component {
     const query = `mutation ProductUpdate(
       $Product_id: Int!
       $changes: ProductUpdateInputs!) {
-      ProductUpdate(
-        Product_id: $Product_id
+      ProductUpdate(Product_id: $Product_id
         changes: $changes) {
         status
         Product_name
@@ -55,14 +54,16 @@ export default class ProductEdit extends Component {
         Image
       }
     }`;
-    console.log("in handle submit2")
-    const { Product_id, created, ...changes } = product;
-    const data1 = await graphQLFetch(query, { Product_id, changes });
-    if (data1) {
-      this.setState({ product: data1.ProductUpdate });
+    const { Product_id, ...changes } = product;
+    console.log(changes)
+    console.log(Product_id)
+    const data = await graphQLFetch(query,{Product_id, changes});
+    console.log(data)
+    if (data) {
+      this.setState({ product: data.ProductUpdate });
       alert('Updated product successfully'); // eslint-disable-line no-alert
     }
-
+    console.log("in handle submit7")
   }
   async loadData() {
     console.log("in load edit")
@@ -97,9 +98,10 @@ export default class ProductEdit extends Component {
     console.log("in render edit")
     const { product: { Product_id } } = this.state;
     const { match: { params: { Product_id: propsId } } } = this.props;
+    console.log(this.props)
     if (Product_id == null) {
       if (propsId != null) {
-        return <h3>{`product with ID ${propsId} not found.`}</h3>;
+        return <h3>{`product with ID ${propsId} updated`}</h3>;
       }
       return null;
     }

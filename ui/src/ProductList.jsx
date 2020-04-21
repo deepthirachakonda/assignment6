@@ -75,6 +75,7 @@ export default class ProductList extends Component {
         const query = `mutation ProductAdd($product: ProductInputs!){
       ProductAdd(product: $product)  {
         Product_id
+        status
         Product_name
         Category
         Price
@@ -99,7 +100,7 @@ export default class ProductList extends Component {
           }
         }`;
         const { products } = this.state;
-        const data = await graphQLFetch(query, { id: products[index].id });
+        const data = await graphQLFetch(query, { Product_id: products[index].Product_id });
         if (data) {
           this.setState((prevState) => {
             const newList = [...prevState.products];
@@ -115,6 +116,7 @@ export default class ProductList extends Component {
         const query = `mutation productDelete($Product_id: Int!) {
         productDelete(Product_id: $Product_id)
         }`;
+        console.log("in delete")
         const { products } = this.state;
         const { location: { pathname, search }, history } = this.props;
         const { Product_id } = products[index];

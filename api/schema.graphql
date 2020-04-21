@@ -1,4 +1,3 @@
-
 enum StatusType {
   New
   Assigned
@@ -25,7 +24,7 @@ type product{
 }
 input ProductInputs{
     Product_id:Int
-    status:StatusType=new
+    status: StatusType = New
     Product_name :String!
     Category :Category_enum=new
     Price:Int!
@@ -35,25 +34,24 @@ input ProductInputs{
 
 
 input ProductUpdateInputs {
-    status:StatusType
-    Product_name:String!
-    Category:Category_enum!
-    Price:Int!
-    Image:String!
+    Product_name:String
+    status: StatusType
+    Category:Category_enum
+    Price:Int
+    Image:String
 }
 
 type Query{
     about:String!
-    ProductList(
-    status: StatusType
+    ProductList(status: StatusType
     effortMin: Int
     effortMax: Int
-  ): [product!]!
+    ): [product!]!
     product(Product_id: Int!): product!
     }
 type Mutation{
     setAboutMessage(message : String!):String
     ProductAdd(product: ProductInputs!):product!
     ProductUpdate(Product_id: Int!, changes: ProductUpdateInputs!): product!
-    productDelete(id: Int!): Boolean!
+    productDelete(Product_id: Int!): Boolean!
 }
