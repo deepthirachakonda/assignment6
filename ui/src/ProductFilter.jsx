@@ -76,40 +76,9 @@ class ProductFilter extends Component  {
         const { effortMin, effortMax } = this.state;
         return (
         <div>
-        Status:
-        {' '}
-        <select value={status} onChange={this.onChangeStatus}>
-          <option value="">(All)</option>
-          <option value="New">New</option>
-          <option value="Assigned">Assigned</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Closed">Closed</option>
-        </select>
-        {' '}
-        Effort between:
-        {' '}
-        <input
-          size={5}
-          value={effortMin}
-          onChange={this.onChangeEffortMin}
-        />
-        {' - '}
-        <input
-          size={5}
-          value={effortMax}
-          onChange={this.onChangeEffortMax}
-        />
-        {' '}
-        <button type="button" onClick={this.applyFilter}>Apply</button>
-        {' '}
-        <button
-          type="button"
-          onClick={this.showOriginalFilter}
-          disabled={!changed}
-        >
-          Reset
-        </button>
-        </div>
+            Product Contents
+          
+          </div>
       );
     }
   }
