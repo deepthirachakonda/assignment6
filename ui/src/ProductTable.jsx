@@ -5,6 +5,12 @@ import React, { Component } from 'react';
 import '../public/css/app.css';
 import ReactDOM from 'react-dom';
 import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
+import {
+    Button, Glyphicon, Tooltip, OverlayTrigger,
+    } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap'
 // import React from 'react';
 
 // class ProductRow extends Component {
@@ -13,7 +19,26 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 const ProductRow = withRouter(({
     product, location: { search }, closeProduct, deleteProduct, index,})=>{
         const selectLocation = { pathname: `/products/${product.Product_id}`, search };
-        return (
+        const editTooltip = (
+            <Tooltip id="close-tooltip" placement="top">Edit Product</Tooltip>
+          );
+        const closeTooltip = (
+            <Tooltip id="close-tooltip" placement="top">Close Product</Tooltip>
+          );
+          const deleteTooltip = (
+            <Tooltip id="delete-tooltip" placement="top">Delete Product</Tooltip>
+          );
+
+          function onClose(e) {
+            e.preventDefault();
+            closeProduct(index);
+          }
+        
+          function onDelete(e) {
+            e.preventDefault();
+            deleteProduct(index);
+          }
+        const tableRow=(
             <tr>
                 <td>{product.Product_id}</td>
                 <td>{product.status}</td>
@@ -21,16 +46,36 @@ const ProductRow = withRouter(({
                 <td>{product.Category}</td>
                 <td>${product.Price}</td>
                 <td><a href={product.Image} target="_blank">{product.Image}</a></td>
-                <td><Link to={`/edit/${product.Product_id}`}>Edit</Link></td>
+                <td>
+                <LinkContainer to={`/edit/${product.Product_id}`}>
+                <OverlayTrigger delayShow={1000} overlay={editTooltip}>
+                    <Button bsSize="xsmall">
+                    <Glyphicon glyph="edit" />
+                    </Button>
+                </OverlayTrigger>
+                </LinkContainer>
+                
+                {/* <td><Link to={`/edit/${product.Product_id}`}>Edit</Link></td> */}
                 {' | '}
-                <button type="button" onClick={() => { closeProduct(index); }}>
-                Close
-                </button>
-                {' | '}
-                <button type="button" onClick={() => { deleteProduct(index); }}>
-                Delete
-                </button>
+                <OverlayTrigger delayShow={1000} overlay={closeTooltip}>
+                <Button bsSize="xsmall" onClick={onClose}>
+                    <Glyphicon glyph="remove" />
+                </Button>
+                </OverlayTrigger>
+                {' '}
+                <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
+                <Button bsSize="xsmall" onClick={onDelete}>
+                <Glyphicon glyph="trash" />
+                </Button>
+                </OverlayTrigger>
+                
+                </td>
             </tr>
+        );
+        return (
+            <LinkContainer to={selectLocation}>
+              {tableRow}
+            </LinkContainer>
         );
     });
 
@@ -47,7 +92,7 @@ const ProductRow = withRouter(({
             />
           ));
         return (
-            <table className="bordered-table">
+            <Table>
                 <thead>
                     <tr>
                         <th>Product_id</th>
@@ -62,6 +107,6 @@ const ProductRow = withRouter(({
                 <tbody>
                     {productRows}
                 </tbody>
-            </table>
+            </Table>
         );
     }

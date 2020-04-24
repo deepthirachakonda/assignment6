@@ -7,6 +7,7 @@ import '../public/css/app.css';
 import ReactDOM from 'react-dom';
 import URLSearchParams from 'url-search-params';
 import { Route } from 'react-router-dom';
+import { Panel } from 'react-bootstrap';
 
 
 import ProductFilter from './ProductFilter.jsx';
@@ -143,7 +144,6 @@ export default class ProductList extends Component {
         return (
             <div className="container">
                 <React.Fragment>
-                    <h1>My Company Inventory</h1>
                     <ProductFilter />
                     <hr />
                     <div className="table">
